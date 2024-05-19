@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     #My_app
     
     "rest_framework",
+    "apps.ConvertApp.apps.ConvertappConfig"
 ]
 
 MIDDLEWARE = [

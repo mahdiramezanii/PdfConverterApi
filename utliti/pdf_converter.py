@@ -5,7 +5,7 @@ import pytesseract
 from PIL import Image
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-
+from django.conf import settings
 from pathlib import Path
 import tempfile
 import sys
@@ -17,11 +17,11 @@ def pdf_to_word(pdf_path:str, output_dir:str, lang='fas', **kwargs):
     """
 
     output_dir=output_dir.replace("\\","/")
-    print(output_dir)
-    # pdf_path = Path(pdf_path)
     pdf_name = f"word-{get_random_string(5)}"
-    pages = convert_from_path(pdf_path,poppler_path="C:/Program Files (x86)/poppler-24.02/bin")
 
+
+
+    pages = convert_from_path(pdf_path,poppler_path=f"{settings.STATICFILES_DIRS[0]}/poppler-24.02/bin")
     pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
 
     texts = []

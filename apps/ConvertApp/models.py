@@ -1,3 +1,10 @@
 from django.db import models
 
-# Create your models here.
+class PdfConverterModel(models.Model):
+
+    pdf=models.FileField(upload_to="media/pdf/")
+    word=models.FileField(upload_to="media/word/",null=True,blank=True)
+
+
+
+

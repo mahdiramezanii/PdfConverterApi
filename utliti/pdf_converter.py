@@ -11,18 +11,16 @@ import tempfile
 import sys
 
 
-def pdf_to_word(pdf_path:str, output_dir:str, lang='fas', **kwargs):
-    """
-    convert pdf to word
-    """
+def pdf_to_word(pdf_path:str, output_dir:str, lang="fas+eng", **kwargs):
+
 
     output_dir=output_dir.replace("\\","/")
     pdf_name = f"word-{get_random_string(5)}"
 
 
-
-    pages = convert_from_path(pdf_path,poppler_path=f"{settings.STATICFILES_DIRS[0]}/poppler-24.02/bin")
-    pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
+    # pages = convert_from_path(pdf_path,poppler_path=f"{settings.STATICFILES_DIRS[0]}/poppler-24.02/bin")
+    pages = convert_from_path(pdf_path, **kwargs)
+    # pytesseract.pytesseract.tesseract_cmd = f"{settings.STATICFILES_DIRS[0]}/Tesseract-OCR/tesseract.exe"
 
     texts = []
 
@@ -33,7 +31,7 @@ def pdf_to_word(pdf_path:str, output_dir:str, lang='fas', **kwargs):
             img_path = Path(img_dir) / img_name
 
             page.save(img_path, 'JPEG')
-            text = pytesseract.image_to_string(Image.open(img_path), lang="fas+eng")
+            text = pytesseract.image_to_string(Image.open(img_path),lang=lang)
             texts.append(text)
 
     document = Document()

@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mydb
+
+  mydb:
+    image: mysql:8.0.30
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "beautiful_elbakyan"
+      MYSQL_ROOT_PASSWORD: "Qfub4VXHeedbAQBPLIUB4aRr"
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:
